@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const itemSchema = new Schema({
+const plantSchema = new Schema({
 
     name: String,
     description: String,
@@ -22,17 +22,12 @@ const itemSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
-    likes: [
-        { type: Schema.Types.ObjectId, ref: "user" }],
-
-    comments: [
-        { type: Schema.Types.ObjectId, ref: "user" }]
 
 },
 
     { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
 
-const User = mongoose.model("User", userSchema);
+const Plant = mongoose.model("Plant", plantSchema);
 
-module.exports = User;
+module.exports = Plant;
