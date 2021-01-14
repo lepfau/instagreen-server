@@ -5,18 +5,17 @@ const plantSchema = new Schema({
 
     name: String,
     description: String,
-    age: Number,
-
     image: {
         type: String,
         default:
             "https://cdn1.iconfinder.com/data/icons/gardening-filled-line/614/1935_-_Growing_Plant-512.png",
     },
-    characteristics: {
-        enlightment: String,
-        watering: String,
-        growingperiod: String
-    },
+    enlightment: String,
+    watering: String,
+    wateringinterval: Number,
+    growingperiod: String,
+    isWatered: Boolean,
+    waterDate: Date,
 
     id_user: {
         type: Schema.Types.ObjectId,
