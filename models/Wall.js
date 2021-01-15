@@ -1,24 +1,26 @@
-// comments[]
-// plant id
-// photo plant[si plusieurs photos]
 
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const wallSchema = new Schema({
 
-    comments: String,
-    picture: String,
+    title: String,
+    author: String,
+    subtitle: String,
+    comments: [String],
+    image: {
+        type: String,
+        default:
+            "https://cdn1.iconfinder.com/data/icons/gardening-filled-line/614/1935_-_Growing_Plant-512.png",
+    },
     id_user: {
         type: Schema.Types.ObjectId,
         ref: "User",
     },
-    plants: {
-        type: [{ type: Schema.Types.ObjectId, ref: "plant" }],
-    }
+
 
 });
 
-const User = mongoose.model("User", userSchema);
+const Wall = mongoose.model("Wall", wallSchema);
 
-module.exports = User;
+module.exports = Wall;

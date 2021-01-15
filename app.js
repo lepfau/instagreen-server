@@ -47,6 +47,7 @@ const usersRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
 const itemRouter = require("./routes/plants");
 const dbplantRouter = require("./routes/dbplants")
+const wallRouteur = require("./routes/wall")
 
 
 app.use("/", indexRouter);
@@ -54,6 +55,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", usersRouter);
 app.use("/api/plants", itemRouter);
 app.use("/api/dbplants", dbplantRouter)
+app.use("/api/wall", wallRouteur)
 
 // 404 Middleware
 app.use((req, res, next) => {

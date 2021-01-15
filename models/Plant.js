@@ -15,7 +15,7 @@ const plantSchema = new Schema({
     wateringinterval: Number,
     growingperiod: String,
     isWatered: Boolean,
-    waterDate: Date,
+    waterDate: String,
 
     id_user: {
         type: Schema.Types.ObjectId,
