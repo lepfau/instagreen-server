@@ -7,7 +7,12 @@ const wallSchema = new Schema({
     title: String,
     author: String,
     subtitle: String,
-    comments: [String],
+
+    comments: {
+        comment: { type: [String] },
+        createdBy: { type: Schema.Types.ObjectId, ref: "User" }
+    },
+
     image: {
         type: String,
         default:
@@ -19,8 +24,12 @@ const wallSchema = new Schema({
     },
 
 
-});
+},
+    { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
+);
 
 const Wall = mongoose.model("Wall", wallSchema);
 
 module.exports = Wall;
+
+

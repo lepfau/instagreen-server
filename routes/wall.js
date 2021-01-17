@@ -31,11 +31,7 @@ router.patch(
             .then((itemDocument) => {
                 if (!itemDocument)
                     return res.status(404).json({ message: "Item not found" });
-                if (itemDocument.id_user.toString() !== req.session.currentUser) {
-                    return res
-                        .status(403)
-                        .json({ message: "You are not allowed to update this document" });
-                }
+
 
                 if (req.file) {
                     item.image = req.file.secure_url;
@@ -75,6 +71,22 @@ router.post("/", requireAuth, uploader.single("image"), (req, res, next) => {
                 .catch(next);
         })
         .catch(next);
+});
+
+//DELETE POST ON WALL
+router.delete("/:id", (req, res, next) => {
+    Wall.findByIdAndDelete(req.params.id)
+        //   Item.findOne({
+        //     $and: [{ id_user: req.session.currentUser }, { _id: req.params.id }],
+        //   })
+        .then((postDoc) => {
+            res.status(204).json({
+                message: "Successfuly deleted",
+            });
+        })
+        .catch((error) => {
+            next(error);
+        });
 });
 
 module.exports = router;

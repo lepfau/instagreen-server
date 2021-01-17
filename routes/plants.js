@@ -4,7 +4,6 @@ const Plant = require("../models/Plant");
 const requireAuth = require("../middlewares/requireAuth");
 const uploader = require("../config/cloudinary");
 
-
 //GET ALL PLANTS  IN DB
 router.get("/", (req, res, next) => {
     Plant.find()
@@ -33,9 +32,8 @@ router.patch(
     requireAuth,
     uploader.single("image"),
     (req, res, next) => {
-
         const item = { ...req.body };
-        console.log(item)
+        console.log(item);
         Plant.findById(req.params.id)
             .then((itemDocument) => {
                 if (!itemDocument)
@@ -85,7 +83,6 @@ router.post("/", requireAuth, uploader.single("image"), (req, res, next) => {
         .catch(next);
 });
 
-
 //DELETE PLANT IN DB
 router.delete("/:id", (req, res, next) => {
     Plant.findByIdAndDelete(req.params.id)
@@ -101,6 +98,5 @@ router.delete("/:id", (req, res, next) => {
             next(error);
         });
 });
-
 
 module.exports = router;
