@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
-
+const uploader = require("../config/cloudinary");
 const salt = 10;
 
 router.post("/signin", (req, res, next) => {
@@ -17,14 +17,14 @@ router.post("/signin", (req, res, next) => {
       if (!isValidPassword) {
         return res.status(400).json({ message: "Invalid credentials" });
       }
-      
+
       req.session.currentUser = userDocument._id;
       res.redirect("/api/auth/isLoggedIn");
     })
     .catch(next);
 });
 
-router.post("/signup", (req, res, next) => {
+router.post("/signup", uploader.single("profileImg"), (req, res, next) => {
   const { email, password, firstName, lastName } = req.body;
 
   User.findOne({ email })
@@ -36,10 +36,16 @@ router.post("/signup", (req, res, next) => {
       const hashedPassword = bcrypt.hashSync(password, salt);
       const newUser = { email, lastName, firstName, password: hashedPassword };
 
+      if (req.file) {
+        newUser.profileImg = req.file.path;
+      }
+
       User.create(newUser)
         .then((newUserDocument) => {
           /* Login on signup */
           req.session.currentUser = newUserDocument._id;
+          const userObj = newUserDocument.toObject();
+          delete userObj.password
           res.redirect("/api/auth/isLoggedIn");
         })
         .catch(next);
@@ -52,7 +58,7 @@ router.get("/isLoggedIn", (req, res, next) => {
     return res.status(401).json({ message: "Unauthorized" });
 
   const id = req.session.currentUser;
-  
+
   User.findById(id)
     .select("-password")
     .then((userDocument) => {
