@@ -38,4 +38,20 @@ router.post("/", requireAuth, (req, res, next) => {
         .catch(next);
 });
 
+
+router.delete("/:id", (req, res, next) => {
+    Comment.findByIdAndDelete(req.params.id)
+        //   Item.findOne({
+        //     $and: [{ id_user: req.session.currentUser }, { _id: req.params.id }],
+        //   })
+        .then((commDoc) => {
+            res.status(204).json({
+                message: "Successfuly deleted",
+            });
+        })
+        .catch((error) => {
+            next(error);
+        });
+});
+
 module.exports = router;
