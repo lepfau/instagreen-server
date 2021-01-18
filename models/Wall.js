@@ -5,13 +5,7 @@ const Schema = mongoose.Schema;
 const wallSchema = new Schema({
 
     title: String,
-    author: String,
     subtitle: String,
-
-    comments: {
-        comment: { type: [String] },
-        createdBy: { type: Schema.Types.ObjectId, ref: "User" }
-    },
 
     image: {
         type: String,
@@ -22,6 +16,8 @@ const wallSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
+
+
 
 
 },
