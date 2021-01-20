@@ -16,48 +16,9 @@ router.get("/", (req, res, next) => {
 });
 
 // GET ONE PLANT IN DB
-router.get("/:id", (req, res, next) => {
-    Plant.findById(req.params.id)
-        .then((plantDocument) => {
-            res.status(200).json(plantDocument);
-        })
-        .catch((error) => {
-            next(error);
-        });
-});
 
-//UPDATE ONE PLANT IN DB
-router.patch(
-    "/:id",
-    requireAuth,
-    uploader.single("image"),
-    (req, res, next) => {
-        const item = { ...req.body };
-        console.log(item);
-        Plant.findById(req.params.id)
-            .then((itemDocument) => {
-                if (!itemDocument)
-                    return res.status(404).json({ message: "Item not found" });
-                if (itemDocument.id_user.toString() !== req.session.currentUser) {
-                    return res
-                        .status(403)
-                        .json({ message: "You are not allowed to update this document" });
-                }
 
-                if (req.file) {
-                    item.image = req.file.secure_url;
-                }
 
-                Plant.findByIdAndUpdate(req.params.id, item, { new: true })
-                    .populate("id_user")
-                    .then((updatedDocument) => {
-                        return res.status(200).json(updatedDocument);
-                    })
-                    .catch(next);
-            })
-            .catch(next);
-    }
-);
 
 //CREATE PLANT IN DB
 router.post("/", requireAuth, uploader.single("image"), (req, res, next) => {
@@ -93,6 +54,49 @@ router.delete("/:id", (req, res, next) => {
             res.status(204).json({
                 message: "Successfuly deleted",
             });
+        })
+        .catch((error) => {
+            next(error);
+        });
+});
+
+//UPDATE ONE PLANT IN DB
+router.patch(
+    "/:id",
+    requireAuth,
+    uploader.single("image"),
+    (req, res, next) => {
+        const item = { ...req.body };
+
+        Plant.findById(req.params.id)
+            .then((itemDocument) => {
+                if (!itemDocument)
+                    return res.status(404).json({ message: "Item not found" });
+                if (itemDocument.id_user.toString() !== req.session.currentUser) {
+                    return res
+                        .status(403)
+                        .json({ message: "You are not allowed to update this document" });
+                }
+
+                if (req.file) {
+                    item.image = req.file.secure_url;
+                }
+
+                Plant.findByIdAndUpdate(req.params.id, item, { new: true })
+                    .populate("id_user")
+                    .then((updatedDocument) => {
+                        return res.status(200).json(updatedDocument);
+                    })
+                    .catch(next);
+            })
+            .catch(next);
+    }
+);
+
+router.get("/:id", (req, res, next) => {
+    Plant.findById(req.params.id)
+        .then((plantDocument) => {
+            res.status(200).json(plantDocument);
         })
         .catch((error) => {
             next(error);

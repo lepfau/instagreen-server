@@ -21,9 +21,9 @@ router.get("/", (req, res, next) => {
 //UPDATE POST ON WALL (FOR COMMENTS MOSTLY)
 router.patch(
     "/:id",
-
+    requireAuth,
+    uploader.single("image"),
     (req, res, next) => {
-
         const post = { ...req.body };
         console.log(post)
         Wall.findById(req.params.id)
@@ -31,6 +31,9 @@ router.patch(
                 if (!itemDocument)
                     return res.status(404).json({ message: "Item not found" });
 
+                if (req.file) {
+                    item.image = req.file.secure_url;
+                }
 
                 Wall.findByIdAndUpdate(req.params.id, post
 
