@@ -50,7 +50,7 @@ const dbplantRouter = require("./routes/dbplants")
 const wallRouteur = require("./routes/wall")
 const commentRouteur = require("./routes/comment")
 
-app.use("/", indexRouter);
+app.use("/api", indexRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/user", usersRouter);
 app.use("/api/plants", itemRouter);
