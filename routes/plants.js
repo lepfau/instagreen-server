@@ -27,7 +27,7 @@ router.post("/", requireAuth, uploader.single("image"), (req, res, next) => {
     if (req.file) {
         updateValues.image = req.file.path;
     }
-
+    console.log(req.body)
     updateValues.id_user = req.session.currentUser; // Retrieve the authors id from the session.
 
     Plant.create(updateValues)
@@ -67,7 +67,7 @@ router.patch(
     uploader.single("image"),
     (req, res, next) => {
         const item = { ...req.body };
-
+        console.log(item)
         Plant.findById(req.params.id)
             .then((itemDocument) => {
                 if (!itemDocument)
@@ -79,7 +79,7 @@ router.patch(
                 }
 
                 if (req.file) {
-                    item.image = req.file.secure_url;
+                    item.image = req.file.path;
                 }
 
                 Plant.findByIdAndUpdate(req.params.id, item, { new: true })

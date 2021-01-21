@@ -32,7 +32,7 @@ router.patch(
                     return res.status(404).json({ message: "Item not found" });
 
                 if (req.file) {
-                    item.image = req.file.secure_url;
+                    post.image = req.file.path;
                 }
 
                 Wall.findByIdAndUpdate(req.params.id, post
