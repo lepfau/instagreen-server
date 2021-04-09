@@ -13,7 +13,10 @@ router.post("/signin", (req, res, next) => {
         return res.status(400).json({ message: "Invalid credentials" });
       }
 
-      const isValidPassword = bcrypt.compareSync(password, userDocument.password);
+      const isValidPassword = bcrypt.compareSync(
+        password,
+        userDocument.password
+      );
       if (!isValidPassword) {
         return res.status(400).json({ message: "Invalid credentials" });
       }
@@ -45,7 +48,7 @@ router.post("/signup", uploader.single("profileImg"), (req, res, next) => {
           /* Login on signup */
           req.session.currentUser = newUserDocument._id;
           const userObj = newUserDocument.toObject();
-          delete userObj.password
+          delete userObj.password;
           res.redirect("/api/auth/isLoggedIn");
         })
         .catch(next);

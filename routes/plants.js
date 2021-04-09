@@ -15,6 +15,16 @@ router.get("/", (req, res, next) => {
     });
 });
 
+router.get("/userplants", (req, res, next) => {
+  Plant.find({ id_user: req.session.currentUser })
+    .then((plantsDocument) => {
+      res.status(200).json(plantsDocument);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
 // GET ONE PLANT IN DB
 
 //CREATE PLANT IN DB

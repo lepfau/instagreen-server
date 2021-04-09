@@ -1,30 +1,28 @@
-
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const wallSchema = new Schema({
-
+const wallSchema = new Schema(
+  {
     title: String,
     subtitle: String,
-
     image: {
-        type: String,
-        default:
-            "https://cdn1.iconfinder.com/data/icons/gardening-filled-line/614/1935_-_Growing_Plant-512.png",
+      type: String,
+      default:
+        "https://cdn1.iconfinder.com/data/icons/gardening-filled-line/614/1935_-_Growing_Plant-512.png",
     },
+
     id_user: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
 
-
-
-},
-    { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
+    id_comments: {
+      type: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+    },
+  },
+  { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
 
 const Wall = mongoose.model("Wall", wallSchema);
 
 module.exports = Wall;
-
-
