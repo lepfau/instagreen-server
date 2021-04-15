@@ -46,17 +46,19 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
 const itemRouter = require("./routes/plants");
-const dbplantRouter = require("./routes/dbplants")
-const wallRouteur = require("./routes/wall")
-const commentRouteur = require("./routes/comment")
+const dbplantRouter = require("./routes/dbplants");
+const wallRouteur = require("./routes/wall");
+const commentRouteur = require("./routes/comment");
+const itemRouteur = require("./routes/item");
 
 app.use("/api", indexRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/user", usersRouter);
 app.use("/api/plants", itemRouter);
-app.use("/api/dbplants", dbplantRouter)
-app.use("/api/wall", wallRouteur)
-app.use("/api/comment", commentRouteur)
+app.use("/api/dbplants", dbplantRouter);
+app.use("/api/wall", wallRouteur);
+app.use("/api/comment", commentRouteur);
+app.use("/api/item", itemRouteur);
 
 if (process.env.NODE_ENV === "production") {
   app.use("*", (req, res, next) => {

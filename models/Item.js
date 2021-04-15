@@ -13,7 +13,7 @@ const itemSchema = new Schema(
     category: [
       {
         type: String,
-        enum: ["Plant", "Kombucha", "Kefir", "Vinegar"],
+        enum: ["Plant"],
       },
     ],
     quantity: Number,
