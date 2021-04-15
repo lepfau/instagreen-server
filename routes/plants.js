@@ -38,6 +38,7 @@ router.post("/", requireAuth, uploader.single("image"), (req, res, next) => {
   updateValues.id_user = req.session.currentUser; // Retrieve the authors id from the session.
 
   Plant.create(updateValues)
+
     .then((plantDocument) => {
       plantDocument
         .populate("id_user")

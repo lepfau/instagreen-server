@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-const Wall = require("../models/Wall");
+const Item = require("../models/Item");
+const requireAuth = require("../middlewares/requireAuth");
 
 router.get("/", (req, res, next) => {
   User.find()
@@ -30,6 +31,17 @@ router.get("/myprofile", (req, res, next) => {
     .catch((error) => {
       next(error);
     });
+});
+
+router.get("/myprofile/items", requireAuth, (req, res, next) => {
+  const currentUserId = req.session.currentUser; // We retrieve the users id from the session.
+
+  // And then get all the items matching the id_user field that matches the logged in users id.
+  Item.find({ id_user: currentUserId })
+    .then((itemDocuments) => {
+      res.status(200).json(itemDocuments);
+    })
+    .catch(next);
 });
 
 router.get("/search/api", async (req, res, next) => {
