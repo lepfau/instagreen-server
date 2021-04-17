@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 const Item = require("../models/Item");
 const requireAuth = require("../middlewares/requireAuth");
+const uploader = require("../config/cloudinary");
 
 router.get("/", (req, res, next) => {
   User.find()
@@ -58,6 +59,23 @@ router.get("/search/api", async (req, res, next) => {
     next(err);
   }
 });
+
+router.patch(
+  "/:id",
+  requireAuth,
+  uploader.single("profileImg"),
+  (req, res, next) => {
+    const user = { ...req.body };
+    if (req.file) {
+      user.profileImg = req.file.path;
+    }
+    User.findByIdAndUpdate(req.session.currentUser, user, { new: true })
+      .then((updatedDocument) => {
+        return res.status(200).json(updatedDocument);
+      })
+      .catch(next);
+  }
+);
 
 router.get("/:id", (req, res, next) => {
   User.findById(req.params.id)
