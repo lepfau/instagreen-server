@@ -3,10 +3,12 @@ const router = express.Router();
 const Plant = require("../models/Plant");
 const requireAuth = require("../middlewares/requireAuth");
 const uploader = require("../config/cloudinary");
+const Wall = require("../models/Wall");
 
 //GET ALL PLANTS  IN DB
 router.get("/", (req, res, next) => {
   Plant.find()
+    .populate("id_user")
     .then((plantsDocument) => {
       res.status(200).json(plantsDocument);
     })
@@ -17,6 +19,7 @@ router.get("/", (req, res, next) => {
 
 router.get("/userplants", (req, res, next) => {
   Plant.find({ id_user: req.session.currentUser })
+    .populate("id_user")
     .then((plantsDocument) => {
       res.status(200).json(plantsDocument);
     })
@@ -38,7 +41,6 @@ router.post("/", requireAuth, uploader.single("image"), (req, res, next) => {
   updateValues.id_user = req.session.currentUser; // Retrieve the authors id from the session.
 
   Plant.create(updateValues)
-
     .then((plantDocument) => {
       plantDocument
         .populate("id_user")
@@ -46,8 +48,15 @@ router.post("/", requireAuth, uploader.single("image"), (req, res, next) => {
         .then((plant) => {
           console.log("here");
           res.status(201).json(plant); // send the populated document.
-        })
-        .catch(next);
+        });
+    })
+    .then((plant) => {
+      const wallInfos = {};
+      wallInfos.title = `New plant added: ${updateValues.name} `;
+      wallInfos.image = updateValues.image;
+      wallInfos.id_user = req.session.currentUser;
+      console.log("yoyoyo" + wallInfos.image);
+      Wall.create(wallInfos);
     })
     .catch(next);
 });
