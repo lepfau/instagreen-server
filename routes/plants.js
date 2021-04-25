@@ -55,7 +55,9 @@ router.post("/", requireAuth, uploader.single("image"), (req, res, next) => {
       wallInfos.title = `New plant added: ${updateValues.name} `;
       wallInfos.image = updateValues.image;
       wallInfos.id_user = req.session.currentUser;
-      console.log("yoyoyo" + wallInfos.image);
+      wallInfos.type = "plantadd";
+      wallInfos.share = req.body.share;
+      console.log("yoyoyo" + wallInfos.share);
       Wall.create(wallInfos);
     })
     .catch(next);

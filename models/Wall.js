@@ -15,6 +15,7 @@ const wallSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    type: String,
 
     id_comments: {
       type: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
