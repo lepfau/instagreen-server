@@ -8,7 +8,7 @@ const Wall = require("../models/Wall");
 //GET ALL PLANTS  IN DB
 router.get("/", (req, res, next) => {
   Plant.find()
-    .populate("id_user")
+
     .then((plantsDocument) => {
       res.status(200).json(plantsDocument);
     })
