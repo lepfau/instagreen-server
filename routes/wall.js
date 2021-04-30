@@ -38,6 +38,11 @@ router.get("/profileposts", (req, res, next) => {
       // Get friends of friends - populate the 'friends' array for every friend
       populate: { path: "id_user" },
     })
+    .populate({
+      path: "likes",
+      // Get friends of friends - populate the 'friends' array for every friend
+      populate: { path: "id_user" },
+    })
     .then((wallDocument) => {
       res.status(200).json(wallDocument);
     })
@@ -51,6 +56,11 @@ router.get("/:id", (req, res, next) => {
     .populate("id_user id_comments")
     .populate({
       path: "id_comments",
+      // Get friends of friends - populate the 'friends' array for every friend
+      populate: { path: "id_user" },
+    })
+    .populate({
+      path: "likes",
       // Get friends of friends - populate the 'friends' array for every friend
       populate: { path: "id_user" },
     })
