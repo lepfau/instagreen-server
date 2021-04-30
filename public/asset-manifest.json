@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.2e72a03e.chunk.css",
-    "main.js": "/static/js/main.4ea9070b.chunk.js",
-    "main.js.map": "/static/js/main.4ea9070b.chunk.js.map",
+    "main.js": "/static/js/main.2d52c450.chunk.js",
+    "main.js.map": "/static/js/main.2d52c450.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.09b85ec0.js",
     "runtime-main.js.map": "/static/js/runtime-main.09b85ec0.js.map",
     "static/css/2.18b0c07b.chunk.css": "/static/css/2.18b0c07b.chunk.css",
-    "static/js/2.8987ba7a.chunk.js": "/static/js/2.8987ba7a.chunk.js",
-    "static/js/2.8987ba7a.chunk.js.map": "/static/js/2.8987ba7a.chunk.js.map",
+    "static/js/2.0f24f300.chunk.js": "/static/js/2.0f24f300.chunk.js",
+    "static/js/2.0f24f300.chunk.js.map": "/static/js/2.0f24f300.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.3d62a75be5536c3d966579d0a0d7b3e3.js": "/precache-manifest.3d62a75be5536c3d966579d0a0d7b3e3.js",
+    "precache-manifest.89bcbca8c6fbc6be2039e4f9de5cf951.js": "/precache-manifest.89bcbca8c6fbc6be2039e4f9de5cf951.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.18b0c07b.chunk.css.map": "/static/css/2.18b0c07b.chunk.css.map",
     "static/css/main.2e72a03e.chunk.css.map": "/static/css/main.2e72a03e.chunk.css.map",
-    "static/js/2.8987ba7a.chunk.js.LICENSE.txt": "/static/js/2.8987ba7a.chunk.js.LICENSE.txt",
+    "static/js/2.0f24f300.chunk.js.LICENSE.txt": "/static/js/2.0f24f300.chunk.js.LICENSE.txt",
     "static/media/loadinggif.gif": "/static/media/loadinggif.8f6d93bc.gif",
     "static/media/loadingwall.gif": "/static/media/loadingwall.4a35f914.gif",
     "static/media/plant.png": "/static/media/plant.97866f4f.png"
@@ -21,8 +21,8 @@
   "entrypoints": [
     "static/js/runtime-main.09b85ec0.js",
     "static/css/2.18b0c07b.chunk.css",
-    "static/js/2.8987ba7a.chunk.js",
+    "static/js/2.0f24f300.chunk.js",
     "static/css/main.2e72a03e.chunk.css",
-    "static/js/main.4ea9070b.chunk.js"
+    "static/js/main.2d52c450.chunk.js"
   ]
 }
