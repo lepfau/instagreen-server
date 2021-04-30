@@ -17,6 +17,11 @@ router.get("/", (req, res, next) => {
       // Get friends of friends - populate the 'friends' array for every friend
       populate: { path: "id_user" },
     })
+    .populate({
+      path: "likes",
+      // Get friends of friends - populate the 'friends' array for every friend
+      populate: { path: "id_user" },
+    })
     .then((wallDocument) => {
       res.status(200).json(wallDocument);
     })
@@ -133,6 +138,26 @@ router.post("/:id/comments", (req, res, next) => {
     })
 
     .catch(next);
+});
+
+router.post("/:id/likes", (req, res, next) => {
+  const updateValues = { ...req.body };
+  updateValues.id_user = req.session.currentUser;
+  Wall.findByIdAndUpdate(req.params.id, {
+    $addToSet: { likes: updateValues.id_user },
+  }).then((doc) => {
+    res.status(201).json(doc);
+  });
+});
+
+router.delete("/:id/likes", (req, res, next) => {
+  const updateValues = { ...req.body };
+  updateValues.id_user = req.session.currentUser;
+  Wall.findByIdAndUpdate(req.params.id, {
+    $pull: { likes: updateValues.id_user },
+  }).then((doc) => {
+    res.status(204).json({ message: "like removed for user" });
+  });
 });
 
 //DELETE POST ON WALL

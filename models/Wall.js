@@ -20,6 +20,9 @@ const wallSchema = new Schema(
     id_comments: {
       type: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
     },
+    likes: {
+      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    },
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
