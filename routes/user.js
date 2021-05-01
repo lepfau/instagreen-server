@@ -15,16 +15,6 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.get("/:id", (req, res, next) => {
-  User.findById(req.params.id)
-    .then((userDocument) => {
-      res.status(200).json(userDocument);
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
-
 router.get("/myprofile", (req, res, next) => {
   User.findById(req.session.currentUser)
     .populate("posts")
@@ -38,6 +28,16 @@ router.get("/myprofile", (req, res, next) => {
     })
     .then((user) => {
       res.status(200).json(user);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+router.get("/:id", (req, res, next) => {
+  User.findById(req.params.id)
+    .then((userDocument) => {
+      res.status(200).json(userDocument);
     })
     .catch((error) => {
       next(error);
