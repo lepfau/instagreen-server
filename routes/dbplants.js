@@ -4,7 +4,9 @@ const DbPlant = require("../models/DbPlant");
 const requireAuth = require("../middlewares/requireAuth");
 const uploader = require("../config/cloudinary");
 
+const protectRoute = require("./../middlewares/protectRoute")
 
+router.use(protectRoute);
 //GET ALL PLANTS  IN DB
 router.get("/", (req, res, next) => {
     DbPlant.find()

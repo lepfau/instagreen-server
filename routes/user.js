@@ -4,6 +4,10 @@ const User = require("../models/User");
 const Item = require("../models/Item");
 const requireAuth = require("../middlewares/requireAuth");
 const uploader = require("../config/cloudinary");
+const protectRoute = require("./../middlewares/protectRoute")
+
+router.use(protectRoute);
+
 
 router.get("/", (req, res, next) => {
   User.find()

@@ -5,6 +5,10 @@ const requireAuth = require("../middlewares/requireAuth");
 const uploader = require("../config/cloudinary");
 const Wall = require("../models/Wall");
 
+const protectRoute = require("./../middlewares/protectRoute")
+
+router.use(protectRoute);
+
 //GET ALL PLANTS  IN DB
 router.get("/", (req, res, next) => {
   Plant.find()

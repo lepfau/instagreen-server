@@ -3,6 +3,10 @@ const router = express.Router();
 const Comment = require("../models/Comments");
 const requireAuth = require("../middlewares/requireAuth");
 
+const protectRoute = require("./../middlewares/protectRoute")
+
+router.use(protectRoute);
+
 router.get("/", (req, res, next) => {
   Comment.find()
     .populate("id_user")

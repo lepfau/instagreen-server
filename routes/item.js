@@ -4,6 +4,10 @@ const Item = require("../models/Item");
 const uploader = require("../config/cloudinary");
 const requireAuth = require("../middlewares/requireAuth");
 
+const protectRoute = require("./../middlewares/protectRoute")
+
+router.use(protectRoute);
+
 router.get("/", (req, res, next) => {
   Item.find({})
     .populate("id_user")
